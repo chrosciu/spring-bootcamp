@@ -7,17 +7,16 @@ import java.time.Instant;
 
 @Slf4j
 @RequiredArgsConstructor
-public class FakePaymentService {
+public class FakePaymentService implements PaymentService {
     private final PaymentIdGenerator paymentIdGenerator;
 
+    @Override
     public Payment process(PaymentRequest paymentRequest) {
-        var payment = Payment.builder()
+        return Payment.builder()
                 .id(paymentIdGenerator.getNext())
                 .money(paymentRequest.getMoney())
                 .timestamp(Instant.now())
                 .status(PaymentStatus.STARTED)
                 .build();
-        log.info("A new payment of {} has been initiated", payment.getMoney());
-        return payment;
     }
 }
