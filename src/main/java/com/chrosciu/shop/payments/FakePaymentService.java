@@ -1,17 +1,25 @@
 package com.chrosciu.shop.payments;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 
 @Slf4j
-@RequiredArgsConstructor
-@Component
+@Scope(BeanDefinition.SCOPE_SINGLETON)
+@Service("paymentService")
 public class FakePaymentService implements PaymentService {
     private final PaymentIdGenerator paymentIdGenerator;
     private final PaymentRepository paymentRepository;
+
+    public FakePaymentService(@Qualifier("incremental") PaymentIdGenerator paymentIdGenerator,
+                              PaymentRepository paymentRepository) {
+        this.paymentIdGenerator = paymentIdGenerator;
+        this.paymentRepository = paymentRepository;
+    }
 
     @Override
     @LogPayments
