@@ -5,6 +5,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.time.Instant;
 
 @Slf4j
@@ -30,5 +32,15 @@ public class FakePaymentService implements PaymentService {
                 .status(PaymentStatus.STARTED)
                 .build();
         return paymentRepository.save(payment);
+    }
+
+    @PostConstruct
+    public void init() {
+        log.info("PaymentService initialized");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        log.info("PaymentService is going down");
     }
 }
