@@ -99,6 +99,9 @@
                                 <Build-Number>1.0</Build-Number>
                             </manifestEntries>
                         </transformer>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                            <resource>META-INF/spring.handlers</resource>
+                        </transformer>
                     </transformers>
                 </configuration>
             </plugin>

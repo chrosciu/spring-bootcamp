@@ -5,13 +5,13 @@ import com.chrosciu.shop.payments.PolishMoney;
 import com.chrosciu.shop.products.Product;
 import com.chrosciu.shop.products.ProductType;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;
 
 @Slf4j
 public class Shop {
-    private static final String BASE_PACKAGE = "com.chrosciu.shop";
+    private static final String CONFIGURATION_FILE = "shop.xml";
 
     private static final Product VIDEO_PRODUCT = Product.builder()
             .name("Spring masterclass")
@@ -28,7 +28,7 @@ public class Shop {
             .build();
 
     public static void main(String[] args) {
-        try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(BASE_PACKAGE)) {
+        try (ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(CONFIGURATION_FILE)) {
             var shopService = applicationContext.getBean(ShopService.class);
             shopService.addProduct(VIDEO_PRODUCT);
             shopService.addProduct(BOOK_PRODUCT);

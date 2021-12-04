@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="incrementalPaymentIdGenerator" class="com.chrosciu.shop.payments.IncrementalPaymentIdGenerator"/>
+
+    <bean id="uuidPaymentIdGenerator" class="com.chrosciu.shop.payments.UUIDPaymentIdGenerator"/>
+
+    <bean id="hashMapPaymentRepository" class="com.chrosciu.shop.payments.HashMapPaymentRepository"/>
+
+    <bean id="fakePaymentService" class="com.chrosciu.shop.payments.FakePaymentService">
+        <constructor-arg name="paymentIdGenerator" ref="uuidPaymentIdGenerator"/>
+        <constructor-arg name="paymentRepository" ref="hashMapPaymentRepository"/>
+    </bean>
+
+    <bean class="com.chrosciu.shop.payments.PaymentConsoleLogger"/>
+
+</beans>
