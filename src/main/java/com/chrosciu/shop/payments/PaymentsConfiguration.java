@@ -1,10 +1,10 @@
 package com.chrosciu.shop.payments;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.concurrent.Executor;
@@ -15,13 +15,13 @@ import java.util.concurrent.Executors;
 @EnableAsync
 public class PaymentsConfiguration {
     @Bean
-    @Qualifier("incremental")
+    @Profile("!uuid")
     public PaymentIdGenerator incrementalPaymentIdGenerator() {
         return new IncrementalPaymentIdGenerator();
     }
 
     @Bean
-    @Qualifier("uuid")
+    @Profile("uuid")
     public PaymentIdGenerator uuidPaymentIdGenerator() {
         return new UUIDPaymentIdGenerator();
     }
@@ -37,7 +37,7 @@ public class PaymentsConfiguration {
     }
 
     @Bean(initMethod = "init", destroyMethod = "destroy")
-    public PaymentService paymentService(@Qualifier("incremental") PaymentIdGenerator paymentIdGenerator,
+    public PaymentService paymentService(PaymentIdGenerator paymentIdGenerator,
                                          PaymentRepository paymentRepository,
                                          ApplicationEventPublisher eventPublisher) {
         return new FakePaymentService(paymentIdGenerator, paymentRepository, eventPublisher);
