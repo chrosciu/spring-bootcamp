@@ -4,14 +4,14 @@ import com.chrosciu.shop.payments.PaymentRequest;
 import com.chrosciu.shop.payments.PaymentService;
 import com.chrosciu.shop.payments.PolishMoney;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @Slf4j
 public class Shop {
-    private static final String BASE_PACKAGE = "com.chrosciu.shop";
+    private static final String CONFIG_LOCATION = "beans.xml";
 
     public static void main(String[] args) {
-        try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(BASE_PACKAGE)) {
+        try (ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(CONFIG_LOCATION)) {
             var paymentService = applicationContext.getBean(PaymentService.class);
             var paymentRequest = PaymentRequest.builder()
                     .money(PolishMoney.of(100))
