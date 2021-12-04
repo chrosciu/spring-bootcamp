@@ -1,7 +1,6 @@
 package com.chrosciu.shop.payments;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ public class FakePaymentService implements PaymentService {
     private final PaymentIdGenerator paymentIdGenerator;
     private final PaymentRepository paymentRepository;
 
-    public FakePaymentService(@Qualifier("incremental") PaymentIdGenerator paymentIdGenerator,
+    public FakePaymentService(@IdGenerator("incremental") PaymentIdGenerator paymentIdGenerator,
                               PaymentRepository paymentRepository) {
         this.paymentIdGenerator = paymentIdGenerator;
         this.paymentRepository = paymentRepository;
