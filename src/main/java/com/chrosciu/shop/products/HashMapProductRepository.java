@@ -1,10 +1,13 @@
 package com.chrosciu.shop.products;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class HashMapProductRepository implements ProductRepository {
     private Map<Long, Product> products = new HashMap<>();
     private long index = 0;

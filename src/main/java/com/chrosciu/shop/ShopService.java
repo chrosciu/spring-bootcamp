@@ -8,9 +8,11 @@ import com.chrosciu.shop.payments.PaymentService;
 import com.chrosciu.shop.products.Product;
 import com.chrosciu.shop.products.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 @RequiredArgsConstructor
 public class ShopService {
     private final OrderService orderService;
