@@ -4,13 +4,21 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Profile;
 
 @EnableAspectJAutoProxy
 @Configuration
 public class PaymentsConfiguration {
     @Bean
+    @Profile("!uuid")
     public PaymentIdGenerator paymentIdGenerator() {
         return new IncrementalPaymentIdGenerator();
+    }
+
+    @Bean
+    @Profile("uuid")
+    public PaymentIdGenerator uuidPaymentIdGenerator() {
+        return new UUIDPaymentIdGenerator();
     }
 
     @Bean
