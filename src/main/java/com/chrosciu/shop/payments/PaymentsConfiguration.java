@@ -6,11 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.PropertySource;
 
 @EnableAspectJAutoProxy
 @Configuration
-@PropertySource("classpath:payments.properties")
 public class PaymentsConfiguration {
     @Bean
     @Profile("!uuid")

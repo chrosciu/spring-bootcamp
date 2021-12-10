@@ -7,18 +7,17 @@ import com.chrosciu.shop.payments.PaymentStatusChangedEvent;
 import com.chrosciu.shop.payments.PolishMoney;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.event.ApplicationEvents;
 import org.springframework.test.context.event.RecordApplicationEvents;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.stream.Collectors;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = ShopTestConfig.class)
+@SpringBootTest
 @RecordApplicationEvents
+@ActiveProfiles("test")
 public class ShopIntegrationTest {
     @Autowired
     private PaymentService paymentService;
