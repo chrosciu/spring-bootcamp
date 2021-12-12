@@ -1,5 +1,6 @@
 package com.chrosciu.shop.payments;
 
+import com.chrosciu.shop.common.Retry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -15,6 +16,7 @@ public class FakePaymentService implements PaymentService {
 
     @Override
     @LogPayments
+    @Retry(attempts = 2)
     public Payment process(PaymentRequest paymentRequest) {
         var payment =  Payment.builder()
                 .id(paymentIdGenerator.getNext())
