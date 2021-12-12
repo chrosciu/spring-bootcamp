@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.mockito.AdditionalAnswers.returnsFirstArg;
+
 @ExtendWith(MockitoExtension.class)
 class FakePaymentServiceTest {
     private static final String PAYMENT_ID = "1";
@@ -22,12 +24,16 @@ class FakePaymentServiceTest {
     @Mock
     private PaymentIdGenerator paymentIdGenerator;
 
+    @Mock
+    private PaymentRepository paymentRepository;
+
     @InjectMocks
     private FakePaymentService paymentService;
 
     @BeforeEach
     void setUp() {
         Mockito.when(paymentIdGenerator.getNext()).thenReturn(PAYMENT_ID);
+        Mockito.when(paymentRepository.save(Mockito.any(Payment.class))).then(returnsFirstArg());
     }
 
     @DisplayName("Should assign generated id to created payment")
