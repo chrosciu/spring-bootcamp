@@ -1,11 +1,11 @@
 package com.chrosciu.shop.payments;
 
-import lombok.Setter;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class IncrementalPaymentIdGenerator implements PaymentIdGenerator {
     private static final String ID_FORMAT = "%010d";
 
-    @Setter
     private long index;
 
     @Override

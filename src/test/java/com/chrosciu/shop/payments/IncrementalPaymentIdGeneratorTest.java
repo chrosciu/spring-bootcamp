@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class IncrementalPaymentIdGeneratorTest {
     private static final String ID_FORMAT = "\\d{10}";
 
-    private final IncrementalPaymentIdGenerator paymentIdGenerator = new IncrementalPaymentIdGenerator();
+    private final IncrementalPaymentIdGenerator paymentIdGenerator = new IncrementalPaymentIdGenerator(0);
 
     @DisplayName("Should generate valid id")
     @Test
