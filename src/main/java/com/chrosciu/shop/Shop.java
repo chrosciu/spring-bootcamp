@@ -1,6 +1,5 @@
 package com.chrosciu.shop;
 
-import com.chrosciu.shop.payments.LoggingPaymentService;
 import com.chrosciu.shop.payments.PaymentRequest;
 import com.chrosciu.shop.payments.PaymentService;
 import com.chrosciu.shop.payments.PolishMoney;
@@ -13,7 +12,7 @@ public class Shop {
 
     public static void main(String[] args) {
         try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(BASE_PACKAGE)) {
-            PaymentService paymentService = applicationContext.getBean(LoggingPaymentService.class);
+            var paymentService = applicationContext.getBean(PaymentService.class);
             var paymentRequest = PaymentRequest.builder()
                     .money(PolishMoney.of(100))
                     .build();
