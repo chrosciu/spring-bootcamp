@@ -1,12 +1,12 @@
 package com.chrosciu.shop.payments;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
 
 @RequiredArgsConstructor
-@Component
+@Slf4j
 public class FakePaymentService implements PaymentService {
     private final PaymentIdGenerator paymentIdGenerator;
     private final PaymentRepository paymentRepository;
@@ -21,5 +21,13 @@ public class FakePaymentService implements PaymentService {
                 .status(PaymentStatus.STARTED)
                 .build();
         return paymentRepository.save(payment);
+    }
+
+    private void init() {
+        log.info("PaymentService initialized");
+    }
+
+    private void destroy() {
+        log.info("PaymentService is going down");
     }
 }
