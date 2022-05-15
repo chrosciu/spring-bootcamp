@@ -2,9 +2,11 @@ package com.chrosciu.shop.payments;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 @Slf4j
 @RequiredArgsConstructor
+@Component
 public class LoggingPaymentService implements PaymentService {
     private static final String LOG_FORMAT = "A new payment of {} has been initiated";
 
