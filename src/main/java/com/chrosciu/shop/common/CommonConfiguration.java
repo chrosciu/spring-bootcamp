@@ -9,4 +9,9 @@ public class CommonConfiguration {
     public RetryMethodExecutor retryMethodExecutor() {
         return new RetryMethodExecutor();
     }
+
+    @Bean
+    public ContextListener contextListener() {
+        return new ContextListener();
+    }
 }
