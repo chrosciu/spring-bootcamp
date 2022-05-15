@@ -1,10 +1,10 @@
 package com.chrosciu.shop.payments;
 
+import com.chrosciu.shop.common.Retry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
-import java.util.Random;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -30,12 +30,6 @@ public class FakePaymentService implements PaymentService {
                 .timestamp(Instant.now())
                 .status(PaymentStatus.STARTED)
                 .build();
-        log.info("Before random");
-        var random = new Random().nextBoolean();
-        if (random) {
-            throw new RuntimeException("blah");
-        }
-        log.info("After random");
         return paymentRepository.save(payment);
     }
 }

@@ -36,6 +36,7 @@ public class PaymentConsoleLogger {
     @Around(value = "@annotation(LogPayments) && args(paymentRequest)")
     @SneakyThrows
     public Object aroundPayment(ProceedingJoinPoint pjp, PaymentRequest paymentRequest) {
+
         log.info("Before payment - around");
         Payment result = null;
         if (paymentRequest.getMoney().isLessThan(1000)) {
