@@ -1,11 +1,11 @@
 package com.chrosciu.shop.payments;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+@Repository("paymentRepository")
 public class HashMapPaymentRepository implements PaymentRepository {
     private final Map<String, Payment> payments = new HashMap<>();
 

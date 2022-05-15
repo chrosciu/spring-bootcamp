@@ -1,5 +1,6 @@
 package com.chrosciu.shop;
 
+import com.chrosciu.shop.payments.PaymentIdGenerator;
 import com.chrosciu.shop.payments.PaymentRequest;
 import com.chrosciu.shop.payments.PaymentService;
 import com.chrosciu.shop.payments.PolishMoney;
@@ -13,6 +14,8 @@ public class Shop {
     public static void main(String[] args) {
         try (var applicationContext = new AnnotationConfigApplicationContext(BASE_PACKAGE)) {
             var paymentService = applicationContext.getBean(PaymentService.class);
+            var generator = applicationContext.getBean("incrementalPaymentIdGenerator", PaymentIdGenerator.class);
+            log.info("Generated id {}", generator.getNext());
             var paymentRequest = PaymentRequest.builder()
                     .money(PolishMoney.of(100))
                     .build();
