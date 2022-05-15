@@ -4,9 +4,13 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @Configuration
 @EnableAspectJAutoProxy
+@EnableAsync
 public class PaymentsConfiguration {
     @Bean("paymentIdGenerator")
     public PaymentIdGenerator incrementalPaymentIdGenerator() {
@@ -39,5 +43,13 @@ public class PaymentsConfiguration {
     @Bean
     public PaymentStatusChangeListener paymentStatusChangeListener() {
         return new PaymentStatusChangeListener();
+    }
+
+    @Bean
+    public TaskExecutor getAsyncTaskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setMaxPoolSize(100);
+        executor.initialize();
+        return executor;
     }
 }
