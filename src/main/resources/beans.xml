@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <aop:aspectj-autoproxy/>
+    <context:annotation-config/>
+    <context:component-scan base-package="com.chrosciu.shop"/>
+
+    <bean id="incrementalPaymentIdGenerator" class="com.chrosciu.shop.payments.IncrementalPaymentIdGenerator"/>
+
+    <bean id="uuidPaymentIdGenerator" class="com.chrosciu.shop.payments.UUIDPaymentIdGenerator"/>
+
+    <bean id="hashMapPaymentRepository" class="com.chrosciu.shop.payments.HashMapPaymentRepository"/>
+
+    <bean id="fakePaymentService" class="com.chrosciu.shop.payments.FakePaymentService" init-method="init" destroy-method="destroy">
+        <constructor-arg name="paymentIdGenerator" ref="uuidPaymentIdGenerator"/>
+        <constructor-arg name="paymentRepository" ref="hashMapPaymentRepository"/>
+    </bean>
+
+    <bean class="com.chrosciu.shop.payments.PaymentConsoleLogger"/>
+
+</beans>
