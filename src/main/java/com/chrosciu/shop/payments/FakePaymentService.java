@@ -22,12 +22,14 @@ public class FakePaymentService implements PaymentService {
     @Override
     @LogPayments
     public Payment process(PaymentRequest paymentRequest) {
+        log.info("In process");
         var payment =  Payment.builder()
                 .id(paymentIdGenerator.getNext())
                 .money(paymentRequest.getMoney())
                 .timestamp(Instant.now())
                 .status(PaymentStatus.STARTED)
                 .build();
+        //throw new RuntimeException("blah");
         return paymentRepository.save(payment);
     }
 }
