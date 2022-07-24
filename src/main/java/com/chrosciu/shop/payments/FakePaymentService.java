@@ -14,7 +14,7 @@ public class FakePaymentService implements PaymentService {
     private final ApplicationEventPublisher eventPublisher;
 
     @Override
-    @LogPayments
+    @LogPayments(threshold = 1000)
     public Payment process(PaymentRequest paymentRequest) {
         var payment = Payment.builder()
                 .id(paymentIdGenerator.getNext())
@@ -22,6 +22,9 @@ public class FakePaymentService implements PaymentService {
                 .timestamp(Instant.now())
                 .status(PaymentStatus.STARTED)
                 .build();
+        if (0 == 1) {
+            throw new RuntimeException("blah");
+        }
         var event = new PaymentStatusChangedEvent(this, payment);
         log.info("Before sending event");
         eventPublisher.publishEvent(event);
