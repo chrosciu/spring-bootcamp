@@ -1,12 +1,14 @@
 package com.chrosciu.shop.payments;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
 
 @Slf4j
+@RequiredArgsConstructor
 public class FakePaymentService {
-    private final UUIDPaymentIdGenerator paymentIdGenerator = new UUIDPaymentIdGenerator();
+    private final PaymentIdGenerator paymentIdGenerator;
 
     public Payment process(PaymentRequest paymentRequest) {
         var payment = Payment.builder()
