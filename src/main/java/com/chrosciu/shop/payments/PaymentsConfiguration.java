@@ -1,5 +1,6 @@
 package com.chrosciu.shop.payments;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -8,8 +9,15 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableAspectJAutoProxy
 public class PaymentsConfiguration {
     @Bean
-    public PaymentIdGenerator paymentIdGenerator() {
+    @Qualifier("incremental")
+    public PaymentIdGenerator incrementalPaymentIdGenerator() {
         return new IncrementalPaymentIdGenerator();
+    }
+
+    @Bean
+    @Qualifier("uuid")
+    public PaymentIdGenerator uuidPaymentIdGenerator() {
+        return new UUIDPaymentIdGenerator();
     }
 
     @Bean
@@ -22,8 +30,8 @@ public class PaymentsConfiguration {
         return new PaymentConsoleLogger();
     }
 
-    @Bean
-    public PaymentService paymentService(PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository) {
+    @Bean(initMethod = "init", destroyMethod = "destroy")
+    public PaymentService paymentService(@Qualifier("incremental") PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository) {
         return new FakePaymentService(paymentIdGenerator, paymentRepository);
     }
 
