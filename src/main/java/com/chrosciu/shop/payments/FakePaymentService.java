@@ -11,6 +11,7 @@ public class FakePaymentService implements PaymentService {
     private final PaymentIdGenerator paymentIdGenerator;
 
     @Override
+    @LogPayments
     public Payment process(PaymentRequest paymentRequest) {
         return Payment.builder()
                 .id(paymentIdGenerator.getNext())
